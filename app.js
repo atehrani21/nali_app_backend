@@ -39,8 +39,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/addUser', function (request, response) {
   console.log(request);
   var user = {
-    "first_name": request.first_name,
-    "last_name": request.last_name
+    "first_name": request.body.first_name,
+    "last_name": request.body.last_name
   };
 
   users.insert(user, function (err, result) {
