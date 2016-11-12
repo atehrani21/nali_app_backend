@@ -61,6 +61,7 @@ var users = db.collection('users');
 //});
 
 app.post('/addUser', function (request, response) {
+  console.log(request);
   var user = {
     "first_name": request.first_name,
     "last_name": request.last_name
