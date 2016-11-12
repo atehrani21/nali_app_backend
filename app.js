@@ -65,6 +65,8 @@ var users = db.collection('users');
 //  });
 //});
 
+console.log('hello');
+
 app.post('/addUser', function (request, response) {
   var user = {
     "first_name": request.first_name,
