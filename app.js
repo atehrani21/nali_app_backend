@@ -39,11 +39,33 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/addUser', function (request, response) {
   console.log(request);
   var user = {
+    "user_name": request.body.user_name,
     "first_name": request.body.first_name,
     "last_name": request.body.last_name
   };
 
   users.insert(user, function (err, result) {
+    if (err) {
+      response.status(HTTP_STATUS.FORBIDDEN).json(error.error);
+      console.log(err);
+      console.log('Wooooo error');
+    } else {
+      response.json({ status: 'success!', result: result });
+      console.log("Wooooo no error");
+      console.log(result);
+    }
+  });
+});
+
+app.post('/updatePosition', function (request, response) {
+  console.log(request);
+  var id = request.body.id;
+  var position = {
+    "x": request.body.x,
+    "y": request.body.y
+  };
+
+  users.update({_id: id}, {$set: {position: position}}, function (err, result) {
     if (err) {
       response.status(HTTP_STATUS.FORBIDDEN).json(error.error);
       console.log(err);
