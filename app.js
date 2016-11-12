@@ -67,7 +67,7 @@ app.post('/addUser', function (request, response) {
     "last_name": request.last_name
   };
 
-  users.insert(seedData, function (err, result) {
+  users.insert(user, function (err, result) {
     if (err) {
       response.send(JSON.stringify({ error: 'error!' }));
       console.log(err);
