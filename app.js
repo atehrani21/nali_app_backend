@@ -7,7 +7,6 @@
 // This application uses express as its web server
 // for more info, see: http://expressjs.com
 var express = require('express');
-var mongodb = require('mongodb');
 var mongojs = require('mongojs');
 // create a new express server
 var app = express();
