@@ -8,41 +8,15 @@
 // for more info, see: http://expressjs.com
 var express = require('express');
 var mongojs = require('mongojs');
+var bodyParser = require('body-parser');
+var HTTP_STATUS = require('http-status');
 // create a new express server
 var app = express();
 
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
 
-//var seedData = [
-//  {
-//    first_name: 'Kevin',
-//    last_name: 'Flynn',
-//    email: 'kfld@gmail.com',
-//    coordinates: {
-//      lat: 1211,
-//      long: 1231
-//    }
-//  },
-//  {
-//    first_name: 'Lol',
-//    last_name: 'Baggis',
-//    email: 'clola3@gmail.com',
-//    coordinates: {
-//      lat: 234,
-//      long: 134
-//    }
-//  },
-//  {
-//    first_name: 'Joe',
-//    last_name: 'Oilson',
-//    email: 'jo345@yahoo.com',
-//    coordinates: {
-//      lat: 654,
-//      long: 323
-//    }
-//  }
-//];
+app.use(bodyParser.json());
 
 var uri = 'mongodb://nali21db3:#8S7Ejefa#Pa@ds151697.mlab.com:51697/nali_db';
 
@@ -60,6 +34,8 @@ var users = db.collection('users');
 //  });
 //});
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.post('/addUser', function (request, response) {
   console.log(request);
   var user = {
@@ -69,11 +45,11 @@ app.post('/addUser', function (request, response) {
 
   users.insert(user, function (err, result) {
     if (err) {
-      response.send(JSON.stringify({ error: 'error!' }));
+      response.status(HTTP_STATUS.FORBIDDEN).json(error.error);
       console.log(err);
       console.log('Wooooo error');
     } else {
-      response.send(JSON.stringify({ status: 'success!' }));
+      response.json({ status: 'success!', result: result });
       console.log("Wooooo no error");
       console.log(result);
     }
