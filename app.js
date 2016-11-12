@@ -99,9 +99,8 @@ app.post('/requestFriend', function (request, response) {
         var position = {"x": result[0].position.x, "y": result[0].position.y};
         response.json({ status: 'success!', result: position});
       } else {
-        response.status(HTTP_STATUS.FORBIDDEN).json(err);
         console.log(err);
-        console.log("Error user doesn't exist");
+        console.log("Error user doesn't have coordinates!");
       }
     } else {
       response.status(HTTP_STATUS.FORBIDDEN).json(err);
