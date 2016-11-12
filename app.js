@@ -53,19 +53,17 @@ var users = db.collection('users');
 //  console.log(err);
 //  console.log(result);
 //});
-//var userArray = [];
-//var finalUserArray = [];
-//users.find(function (err, result) {
-//  result.forEach(function(user){
-//    userArray.push(user);
-//    if (userArray.length == result.length) {
-//      finalUserArray = userArray;
-//      console.log(finalUserArray);
-//    }
-//  });
-//});
-
-console.log('hello');
+var userArray = [];
+var finalUserArray = [];
+users.find(function (err, result) {
+  result.forEach(function(user){
+    userArray.push(user);
+    if (userArray.length == result.length) {
+      finalUserArray = userArray;
+      console.log(finalUserArray);
+    }
+  });
+});
 
 //app.post('/addUser', function (request, response) {
 //  var user = {
@@ -91,3 +89,9 @@ console.log('hello');
 //  // print a message when the server starts listening
 //  console.log("server starting on localhost:3000");
 //});
+
+var port = process.env.PORT || 3000;
+
+var server = app.listen(port, function () {
+  console.log('Server running at http://127.0.0.1:' + port + '/');
+});
