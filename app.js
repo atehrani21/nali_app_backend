@@ -37,24 +37,28 @@ var users = db.collection('users');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/addUser', function (request, response) {
-  console.log(request);
+  //console.log(request);
   var user = {
     "user_name": request.body.user_name,
     "first_name": request.body.first_name,
     "last_name": request.body.last_name
   };
 
-  users.insert(user, function (err, result) {
-    if (err) {
-      response.status(HTTP_STATUS.FORBIDDEN).json(error.error);
-      console.log(err);
-      console.log('Wooooo error');
-    } else {
-      response.json({ status: 'success!', result: result });
-      console.log("Wooooo no error");
-      console.log(result);
-    }
+  users.find({"user_name": user.user_name}, function (err, result) {
+    console.log(result);
   });
+
+  //users.insert(user, function (err, result) {
+  //  if (err) {
+  //    response.status(HTTP_STATUS.FORBIDDEN).json(error.error);
+  //    console.log(err);
+  //    console.log('Wooooo error');
+  //  } else {
+  //    response.json({ status: 'success!', result: result });
+  //    console.log("Wooooo no error");
+  //    console.log(result);
+  //  }
+  //});
 });
 
 app.post('/updatePosition', function (request, response) {
