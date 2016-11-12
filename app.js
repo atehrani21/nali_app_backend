@@ -46,7 +46,7 @@ app.post('/addUser', function (request, response) {
 
   users.find({"user_name": user.user_name}, function (err, result) {
     console.log(result);
-    if (result && result[0].user_name) {
+    if (result[0]) {
       response.json({"error": "username already exists! please try another username."});
     } else {
       users.insert(user, function (err, result) {
