@@ -45,20 +45,22 @@ app.post('/addUser', function (request, response) {
   };
 
   users.find({"user_name": user.user_name}, function (err, result) {
-    console.log(result);
+    if (result) {
+      response.json({"error": "username already exists! please try another username."});
+    } else {
+      users.insert(user, function (err, result) {
+        if (err) {
+          response.status(HTTP_STATUS.FORBIDDEN).json(error.error);
+          console.log(err);
+          console.log('Wooooo error');
+        } else {
+          response.json({ status: 'success!', result: result });
+          console.log("Wooooo no error");
+          console.log(result);
+        }
+      });
+    }
   });
-
-  //users.insert(user, function (err, result) {
-  //  if (err) {
-  //    response.status(HTTP_STATUS.FORBIDDEN).json(error.error);
-  //    console.log(err);
-  //    console.log('Wooooo error');
-  //  } else {
-  //    response.json({ status: 'success!', result: result });
-  //    console.log("Wooooo no error");
-  //    console.log(result);
-  //  }
-  //});
 });
 
 app.post('/updatePosition', function (request, response) {
