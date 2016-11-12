@@ -85,6 +85,32 @@ app.post('/updatePosition', function (request, response) {
   });
 });
 
+//Take in requested username from app. Returns the last known request of friend
+app.post('/requestFriend', function (request, response) {
+  //Username
+  console.log(request);
+  var friendname = request.body.user_name;
+  //Compare the request with what's in databse
+  users.find({user_name: friendname}, function (err, result) {
+    if (result[0]) {
+      console.log(result);
+      //Requests position Set up json
+      if(result[0].position) {
+        var position = {"x": result[0].position.x, "y": result[0].position.y};
+        response.json({ status: 'success!', result: position});
+      } else {
+        response.status(HTTP_STATUS.FORBIDDEN).json(err);
+        console.log(err);
+        console.log("Error user doesn't exist");
+      }
+    } else {
+      response.status(HTTP_STATUS.FORBIDDEN).json(err);
+      console.log(err);
+      console.log("Error user doesn't exist");
+    }
+  });
+});
+
 // start server on the specified port and binding host
 //app.listen(3000, '0.0.0.0', function() {
 //  // print a message when the server starts listening
