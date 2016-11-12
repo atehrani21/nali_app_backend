@@ -65,7 +65,7 @@ app.post('/updatePosition', function (request, response) {
     "y": request.body.y
   };
 
-  users.update({"_id": id}, {$set: {position: position}}, function (err, result) {
+  users.update({"_id.$oid": id}, {$set: {position: position}}, function (err, result) {
     if (err) {
       response.status(HTTP_STATUS.FORBIDDEN).json(error.error);
       console.log(err);
