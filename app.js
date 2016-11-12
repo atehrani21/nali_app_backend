@@ -14,56 +14,56 @@ var app = express();
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
 
-//var seedData = [
-//  {
-//    first_name: 'Kevin',
-//    last_name: 'Flynn',
-//    email: 'kfld@gmail.com',
-//    coordinates: {
-//      lat: 1211,
-//      long: 1231
-//    }
-//  },
-//  {
-//    first_name: 'Lol',
-//    last_name: 'Baggis',
-//    email: 'clola3@gmail.com',
-//    coordinates: {
-//      lat: 234,
-//      long: 134
-//    }
-//  },
-//  {
-//    first_name: 'Joe',
-//    last_name: 'Oilson',
-//    email: 'jo345@yahoo.com',
-//    coordinates: {
-//      lat: 654,
-//      long: 323
-//    }
-//  }
-//];
+var seedData = [
+  {
+    first_name: 'Kevin',
+    last_name: 'Flynn',
+    email: 'kfld@gmail.com',
+    coordinates: {
+      lat: 1211,
+      long: 1231
+    }
+  },
+  {
+    first_name: 'Lol',
+    last_name: 'Baggis',
+    email: 'clola3@gmail.com',
+    coordinates: {
+      lat: 234,
+      long: 134
+    }
+  },
+  {
+    first_name: 'Joe',
+    last_name: 'Oilson',
+    email: 'jo345@yahoo.com',
+    coordinates: {
+      lat: 654,
+      long: 323
+    }
+  }
+];
 
 var uri = 'mongodb://nali21db3:#8S7Ejefa#Pa@ds151697.mlab.com:51697/nali_db';
 
 var db = mongojs(uri);
 var users = db.collection('users');
 
-//users.insert(seedData, function (err, result) {
-//  console.log(err);
-//  console.log(result);
-//});
-var userArray = [];
-var finalUserArray = [];
-users.find(function (err, result) {
-  result.forEach(function(user){
-    userArray.push(user);
-    if (userArray.length == result.length) {
-      finalUserArray = userArray;
-      console.log(finalUserArray);
-    }
-  });
+users.insert(seedData, function (err, result) {
+  console.log(err);
+  console.log(result);
 });
+//var userArray = [];
+//var finalUserArray = [];
+//users.find(function (err, result) {
+//  result.forEach(function(user){
+//    userArray.push(user);
+//    if (userArray.length == result.length) {
+//      finalUserArray = userArray;
+//      console.log(finalUserArray);
+//    }
+//  });
+//});
 
 // start server on the specified port and binding host
 //app.listen(3000, '0.0.0.0', function() {
