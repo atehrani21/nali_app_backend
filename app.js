@@ -67,24 +67,24 @@ var users = db.collection('users');
 
 console.log('hello');
 
-app.post('/addUser', function (request, response) {
-  var user = {
-    "first_name": request.first_name,
-    "last_name": request.last_name
-  };
-
-  users.insert(seedData, function (err, result) {
-    if (err) {
-      response.send(JSON.stringify({ error: 'error!' }));
-      console.log(err);
-      console.log('Wooooo error');
-    } else {
-      response.send(JSON.stringify({ status: 'success!' }));
-      console.log("Wooooo no error");
-      console.log(result);
-    }
-  });
-});
+//app.post('/addUser', function (request, response) {
+//  var user = {
+//    "first_name": request.first_name,
+//    "last_name": request.last_name
+//  };
+//
+//  users.insert(seedData, function (err, result) {
+//    if (err) {
+//      response.send(JSON.stringify({ error: 'error!' }));
+//      console.log(err);
+//      console.log('Wooooo error');
+//    } else {
+//      response.send(JSON.stringify({ status: 'success!' }));
+//      console.log("Wooooo no error");
+//      console.log(result);
+//    }
+//  });
+//});
 
 // start server on the specified port and binding host
 //app.listen(3000, '0.0.0.0', function() {
