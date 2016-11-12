@@ -51,7 +51,7 @@ app.post('/addUser', function (request, response) {
     } else {
       users.insert(user, function (err, result) {
         if (err) {
-          response.status(HTTP_STATUS.FORBIDDEN).json(error.error);
+          response.status(HTTP_STATUS.FORBIDDEN).json(err);
           console.log(err);
           console.log('Wooooo error');
         } else {
@@ -74,7 +74,7 @@ app.post('/updatePosition', function (request, response) {
 
   users.update({"user_name": userName}, {$set: {position: position}}, function (err, result) {
     if (err) {
-      response.status(HTTP_STATUS.FORBIDDEN).json(error.error);
+      response.status(HTTP_STATUS.FORBIDDEN).json(err);
       console.log(err);
       console.log('Wooooo error');
     } else {
