@@ -53,10 +53,16 @@ var users = db.collection('users');
 //  console.log(err);
 //  console.log(result);
 //});
-
+var userArray = [];
+var finalUserArray = [];
 users.find(function (err, result) {
-  console.log(err);
-  console.log(result);
+  result.forEach(function(user){
+    userArray.push(user);
+    if (userArray.length == result.length) {
+      finalUserArray = userArray;
+      console.log(finalUserArray);
+    }
+  });
 });
 
 // start server on the specified port and binding host
