@@ -37,7 +37,6 @@ var users = db.collection('users');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/addUser', function (request, response) {
-  //console.log(request);
   var user = {
     "user_name": request.body.user_name,
     "first_name": request.body.first_name,
@@ -45,19 +44,16 @@ app.post('/addUser', function (request, response) {
   };
 
   users.find({"user_name": user.user_name}, function (err, result) {
-    console.log(result);
     if (result[0]) {
       response.json({"error": "username already exists! please try another username."});
     } else {
       users.insert(user, function (err, result) {
         if (err) {
           response.status(HTTP_STATUS.FORBIDDEN).json(err);
-          console.log(err);
-          console.log('Wooooo error');
+          //console.log(err);
         } else {
           response.json({ status: 'success!', result: result });
-          console.log("Wooooo no error");
-          console.log(result);
+          //console.log(result);
         }
       });
     }
@@ -65,7 +61,6 @@ app.post('/addUser', function (request, response) {
 });
 
 app.post('/updatePosition', function (request, response) {
-  console.log(request);
   var userName = request.body.user_name;
   var position = {
     "x": request.body.x,
@@ -75,12 +70,28 @@ app.post('/updatePosition', function (request, response) {
   users.update({"user_name": userName}, {$set: {position: position}}, function (err, result) {
     if (err) {
       response.status(HTTP_STATUS.FORBIDDEN).json(err);
-      console.log(err);
-      console.log('Wooooo error');
+      //console.log(err);
     } else {
       response.json({ status: 'success!', result: result });
-      console.log("Wooooo no error");
-      console.log(result);
+      //console.log(result);
+    }
+  });
+});
+
+//Checking if friend exists
+app.post('/checkFriendRequest', function (request, response) {
+  var friendRequest = request.body.username;
+  users.find({username: friendRequest}, function (err, result) {
+    if(err){
+      response.status(HTTP_STATUS.FORBIDDEN).json(err);
+      //console.log(err);
+      //console.log("Error");
+    } else {
+      if (result[0]) {
+        response.json({status: 'Successfully added friend', user_exists: true});
+      } else {
+        response.json({status: "User doesn't exist", user_exists: false});
+      }
     }
   });
 });
@@ -93,19 +104,19 @@ app.post('/requestFriend', function (request, response) {
   //Compare the request with what's in databse
   users.find({user_name: friendname}, function (err, result) {
     if (result[0]) {
-      console.log(result);
+      //console.log(result);
       //Requests position Set up json
       if(result[0].position) {
         var position = {"x": result[0].position.x, "y": result[0].position.y};
         response.json({ status: 'success!', result: position});
       } else {
         response.json({status: 'error', result: 'user does not have any coordinates'});
-        console.log("Error user doesn't have coordinates!");
+        //console.log("Error user doesn't have coordinates!");
       }
     } else {
       response.status(HTTP_STATUS.FORBIDDEN).json(err);
-      console.log(err);
-      console.log("Error user doesn't exist");
+      //console.log(err);
+      //console.log("Error user doesn't exist");
     }
   });
 });
