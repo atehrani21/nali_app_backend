@@ -80,7 +80,7 @@ app.post('/updatePosition', function (request, response) {
 
 //Checking if friend exists
 app.post('/checkFriendRequest', function (request, response) {
-  var friendRequest = request.body.username;
+  var friendRequest = request.body.user_name;
   users.find({user_name: friendRequest}, function (err, result) {
     if(err){
       response.status(HTTP_STATUS.FORBIDDEN).json(err);
