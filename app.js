@@ -88,6 +88,7 @@ app.post('/checkFriendRequest', function (request, response) {
       //console.log("Error");
     } else {
       if (result[0]) {
+        console.log(result);
         response.json({status: 'Successfully added friend', user_exists: true});
       } else {
         response.json({status: "User doesn't exist", user_exists: false});
