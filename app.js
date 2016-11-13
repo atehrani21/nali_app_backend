@@ -99,7 +99,7 @@ app.post('/requestFriend', function (request, response) {
         var position = {"x": result[0].position.x, "y": result[0].position.y};
         response.json({ status: 'success!', result: position});
       } else {
-        console.log(err);
+        response.json({status: 'error', result: 'user does not have any coordinates'});
         console.log("Error user doesn't have coordinates!");
       }
     } else {
