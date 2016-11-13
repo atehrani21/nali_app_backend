@@ -1,11 +1,3 @@
-/*eslint-env node*/
-
-//------------------------------------------------------------------------------
-// node.js starter application for Bluemix
-//------------------------------------------------------------------------------
-
-// This application uses express as its web server
-// for more info, see: http://expressjs.com
 var express = require('express');
 var mongojs = require('mongojs');
 var bodyParser = require('body-parser');
@@ -49,7 +41,7 @@ app.post('/addUser', function (request, response) {
     } else {
       users.insert(user, function (err, result) {
         if (err) {
-          response.status(HTTP_STATUS.FORBIDDEN).json(err);
+          response.status(HTTP_STATUS.FORBIDDEN).json({error: err});
           //console.log(err);
         } else {
           response.json({ status: 'success!', result: result });
@@ -69,7 +61,7 @@ app.post('/updatePosition', function (request, response) {
 
   users.update({"user_name": userName}, {$set: {position: position}}, function (err, result) {
     if (err) {
-      response.status(HTTP_STATUS.FORBIDDEN).json(err);
+      response.status(HTTP_STATUS.FORBIDDEN).json({error: err});
       //console.log(err);
     } else {
       response.json({ status: 'success!', result: result });
@@ -83,7 +75,7 @@ app.post('/checkFriendRequest', function (request, response) {
   var friendRequest = request.body.user_name;
   users.find({user_name: friendRequest}, function (err, result) {
     if(err){
-      response.status(HTTP_STATUS.FORBIDDEN).json(err);
+      response.status(HTTP_STATUS.FORBIDDEN).json({error: err});
       //console.log(err);
       //console.log("Error");
     } else {
@@ -115,7 +107,7 @@ app.post('/requestFriend', function (request, response) {
         //console.log("Error user doesn't have coordinates!");
       }
     } else {
-      response.status(HTTP_STATUS.FORBIDDEN).json(err);
+      response.status(HTTP_STATUS.FORBIDDEN).json({error: err});
       //console.log(err);
       //console.log("Error user doesn't exist");
     }
